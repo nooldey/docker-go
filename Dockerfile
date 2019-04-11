@@ -12,13 +12,13 @@ EXPOSE 22
 EXPOSE 80
 
 # Install Base packages
-RUN yum -y install wget tar git
+RUN yum -y install wget tar
 
 # Install GoLang Enviroment
 RUN wget https://dl.google.com/go/go1.12.3.linux-amd64.tar.gz
 RUN tar -C /usr/local -xzf go1.12.3.linux-amd64.tar.gz
+RUN rm -f go1.12.3.linux-amd64.tar.gz
 RUN /bin/echo -e "export PATH=$PATH:/usr/local/go/bin\nexport GOPATH=$HOME/go" >>/etc/profile
-RUN source /etc/profile
 
-# Open SSH
-CMD /usr/sbin/sshd -D
+# Active Golang && Open SSH
+CMD ["source /etc/profile", "/usr/sbin/sshd -D"]

@@ -1,32 +1,27 @@
 # 构建镜像
 
 ```bash
-docker build -t nooldey/centos:6.7 .
+docker build -t nooldey/centos .
 ```
 
 # 用镜像创建容器运行
 
 ```bash
-docker run -t -i nooldey/centos:6.7 /bin/bash
-docker run -t -i nooldey/centos:6.7-go /bin/bash
-docker run -t -i nooldey/centos:6.7-node /bin/bash
-docker run -t -i nooldey/centos:6.7-java /bin/bash
+docker run -t -i nooldey/centos /bin/bash
 ```
 
 # 容器内更新镜像
 
-```bash
-apt-get update
-```
+### 从容器创建一个新的镜像
 
 ```bash
-docker commit -m="update images: nooldey/centos" -a="nooldey" xxx nooldey/centos:6.7
+docker commit -m="update images: nooldey/centos" -a="nooldey" x nooldey/centos
 ```
 
 # 挂载宿主机目录
 
 ```bash
-docker run -t -i -v ./dev:/data/dev nooldey/centos:6.7 /bin/bash
+docker run -t -i -v /f/web-deep/dockers/customDock/dev:/data/dev nooldey/centos /bin/bash
 ```
 
 # docker run 指令
