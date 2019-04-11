@@ -1,1 +1,0 @@
-docker build -t nooldey/centos:6.7 .
