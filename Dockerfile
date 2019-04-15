@@ -15,7 +15,7 @@ RUN /bin/echo "# Initial User settings..."                                      
     && rm -f go1.12.3.linux-amd64.tar.gz                                                            \
     && /bin/echo -e "export PATH=$PATH:/usr/local/go/bin\nexport GOPATH=$HOME/go" >>/etc/profile    \
     && source /etc/profile     \
-    && yum clean packages
+    && yum clean all
 # Expose ports
 EXPOSE 22
 EXPOSE 80
