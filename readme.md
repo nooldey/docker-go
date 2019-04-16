@@ -1,13 +1,13 @@
 # 构建镜像
 
 ```bash
-docker build -t nooldey/centos:go .
+docker build -t nooldey/centos .
 ```
 
 # 用镜像创建容器运行
 
 ```bash
-docker run -t -i nooldey/centos:go /bin/bash
+docker run -t -i nooldey/centos /bin/bash
 ```
 
 # 容器内更新镜像
@@ -15,13 +15,13 @@ docker run -t -i nooldey/centos:go /bin/bash
 ### 从容器创建一个新的镜像
 
 ```bash
-docker commit -m="update images: nooldey/centos:go" -a="nooldey" x nooldey/centos:go
+docker commit -m="update images: nooldey/centos" -a="nooldey" x nooldey/centos
 ```
 
 # 挂载宿主机目录
 
 ```bash
-docker run -t -i -v /f/web-deep/dockers/customDock/dev:/data/dev nooldey/centos:go /bin/bash
+docker run --name="go" -t -i -v /f/web-deep/dockers/customDock/dev:/data/dev nooldey/centos /bin/bash
 ```
 
 # docker run 指令
