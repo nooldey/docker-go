@@ -2,9 +2,9 @@ FROM alpine:latest
 LABEL Author "nooldey@gmail.com"
 ENV GOLANG_VERSION 1.12.4
 # Install Golang
-RUN echo "installing go version $GOLANG_VERSION..."; \
-        apk add --no-cache ca-certificates; \
-        [! -e /etc/nsswitch.conf] && echo 'hosts: files dns' > /etc/nsswitch.conf; \
+RUN apk add --no-cache ca-certificates
+RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf \
+        echo "installing go version $GOLANG_VERSION..."; \
         set -eux; \
         apk add --no-cache --virtual .build-deps bash gcc musl-dev openssl go; \
         export \
