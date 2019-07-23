@@ -1,10 +1,10 @@
-FROM alpine:latest
+FROM alpine:latest AS build
 LABEL Author "nooldey@gmail.com"
 ENV GOLANG_VERSION 1.12.4
 # Install Golang
-RUN apk add --no-cache ca-certificates
-RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf \
-        echo "installing go version $GOLANG_VERSION..."; \
+RUN echo "installing go version $GOLANG_VERSION..."; \
+        apk add --no-cache ca-certificates; \
+        [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf; \
         set -eux; \
         apk add --no-cache --virtual .build-deps bash gcc musl-dev openssl go; \
         export \
@@ -22,8 +22,7 @@ RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf 
                 /usr/local/go/pkg/obj \
         ; \
         apk del .build-deps; \
-        export PATH="/usr/local/go/bin:$PATH"; \
-        go version
+        export PATH="/usr/local/go/bin:$PATH";
 
 ENV GOPATH /go
 ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
@@ -31,6 +30,9 @@ ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 RUN mkdir -p "$GOPATH/src" "$GOPATH/bin" && chmod -R 777 "$GOPATH"
 WORKDIR $GOPATH
 
+FROM alpine:latest
+COPY --from=build /go /go
+CMD ["go","version"]
 # Expose ports
 EXPOSE 22
 EXPOSE 80
